@@ -39,7 +39,7 @@ static int GetNextFreeSlot()
 	return -1;
 }
 
-GameObject* CreateObject(Vector2 position, void (*updateBehaviour)(GameObject*), void (*renderBehaviour)(GameObject*), void* startFlags, int sizeOfData)
+GameObject* CreateObject(Vector2 position, void (*startBehaviour)(struct gameObjectStruct*, void*), void (*updateBehaviour)(GameObject*), void (*renderBehaviour)(GameObject*), void* startFlags, int sizeOfData)
 {
 	int nextID = GetNextFreeSlot();
 	if (nextID == -1)
@@ -47,6 +47,7 @@ GameObject* CreateObject(Vector2 position, void (*updateBehaviour)(GameObject*),
 	
 	GameObject newObject = blankObject;
 	newObject.position = position;
+	newObject.startBehaviour = startBehaviour;
 	newObject.updateBehaviour = updateBehaviour;
 	newObject.renderBehaviour = renderBehaviour;
 	newObject.currentState = GO_ACTIVE;
@@ -57,6 +58,12 @@ GameObject* CreateObject(Vector2 position, void (*updateBehaviour)(GameObject*),
 		newObject.objectData = NULL;
 	
 	objectPool[nextID] = newObject;
+	
+	if (startBehaviour != NULL)
+	{
+		objectPool[nextID].startBehaviour(&objectPool[nextID], startFlags);
+	}
+	
 	return &objectPool[nextID];
 }
 
