@@ -12,8 +12,8 @@
 typedef enum gameObjectStateEnum
 {
 	GO_DESTROYED = -1,
-	GO_INACTIVE,
-	GO_ACTIVE
+	GO_INACTIVE = 0,
+	GO_ACTIVE = 1
 } GameObjectState;
 
 typedef struct gameObjectStruct

@@ -13,6 +13,7 @@ void InitObjectSystem()
 {
 	blankObject.id = -1;
 	blankObject.position = Vector2Zero();
+	blankObject.startBehaviour = NULL;
 	blankObject.updateBehaviour = NULL;
 	blankObject.renderBehaviour = NULL;
 	blankObject.currentState = GO_DESTROYED;
