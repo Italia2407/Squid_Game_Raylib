@@ -19,7 +19,7 @@ int main(void)
     InitObjectSystem();
     
     SquidFlags squidFlags = (SquidFlags){BEIGE, BROWN};
-    GameObject* squidObject = CreateObject((Vector2){72, 72}, &InitialiseSquid, &UpdateSquid, &RenderSquid, &squidFlags, sizeof(Squid));
+    CreateObject((Vector2){GetScreenWidth()  / 2, GetScreenHeight() / 2}, &InitialiseSquid, &UpdateSquid, &RenderSquid, &squidFlags, sizeof(Squid));
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key

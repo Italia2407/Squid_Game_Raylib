@@ -11,7 +11,7 @@
 typedef struct squidStruct
 {
 	Vector2 direction;
-	float velocity;
+	float speed;
 	
 	Color headColour;
 	Color tentacleColour;
@@ -23,7 +23,7 @@ typedef struct squidFlagsStruct
 	Color tentacleColour;
 } SquidFlags;
 
-void InitialiseSquid(GameObject* squidObject, SquidFlags* startFlags);
+void InitialiseSquid(GameObject* squidObject, void* startFlags);
 void UpdateSquid(GameObject* squidObject);
 void RenderSquid(GameObject* squidObject);
 
