@@ -8,6 +8,8 @@
 #define SQUID_WIDTH 64
 #define SQUID_HEIGHT 64
 
+static void ResolveMovement(GameObject* squidObject, Squid* squidData);
+
 void InitialiseSquid(GameObject* squidObject, void* startFlags)
 {
 	Squid* squidData = (Squid*)squidObject->objectData;
@@ -34,8 +36,7 @@ void UpdateSquid(GameObject* squidObject)
 		squidData->speed = 0.0f;
 	}
 	
-	Vector2 velocity = Vector2Scale(squidData->direction, squidData->speed);
-	squidObject->position = Vector2Add(squidObject->position, velocity);
+	ResolveMovement(squidObject, squidData);
 }
 
 void RenderSquid(GameObject* squidObject)
@@ -45,4 +46,10 @@ void RenderSquid(GameObject* squidObject)
 	Rectangle squidRectangle = (Rectangle){squidObject->position.x, squidObject->position.y, SQUID_WIDTH, SQUID_HEIGHT};
 	Vector2 squidCentre = (Vector2){squidRectangle.width / 2, squidRectangle.height / 2};
 	DrawRectanglePro(squidRectangle, squidCentre, 0.0f, squidData->headColour);
+}
+
+void ResolveMovement(GameObject* squidObject, Squid* squidData)
+{
+	Vector2 velocity = Vector2Scale(squidData->direction, squidData->speed);
+	squidObject->position = Vector2Add(squidObject->position, velocity);
 }
