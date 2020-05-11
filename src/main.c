@@ -7,43 +7,47 @@
 #define SCREEN_HEIGHT (720)
 #define FPS_CAP (60)
 
-// The default path to all of our assets
-#define ASSET_PATH "../assets/"
-
 int main(void)
 {
     // Initialization
-    //--------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Squid Game");
-    SetTargetFPS(FPS_CAP);               // Set our game to run at 60 frames-per-second
+	// Set our game to run at desired frame-rate
+    SetTargetFPS(FPS_CAP);
     InitObjectSystem();
     
     SquidFlags squidFlags = (SquidFlags){BEIGE, BROWN};
-    CreateObject((Vector2){GetScreenWidth()  / 2, GetScreenHeight() / 2}, &InitialiseSquid, &UpdateSquid, &RenderSquid, &squidFlags, sizeof(Squid));
+    CreateObject((Vector2){GetScreenWidth()  / 2, GetScreenHeight() / 2},
+    				&InitialiseSquid, &UpdateSquid, &RenderSquid, &squidFlags, sizeof(Squid));
+    //------------------------------------------------------------------------------------------------------------------
 
     // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    //------------------------------------------------------------------------------------------------------------------
+	// Detects whether the window close button or ESC key have been pressed
+    while (!WindowShouldClose())
     {
         // Update
-        //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
+        //--------------------------------------------------------------------------------------------------------------
         UpdateObjects();
-        //----------------------------------------------------------------------------------
-
+        //--------------------------------------------------------------------------------------------------------------
+        
         // Draw
-        //----------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------------------------------
         BeginDrawing();
-        ClearBackground(SKYBLUE);	// Set background colour to
+		// Set background colour of the game
+        ClearBackground(SKYBLUE);
         
         RenderObjects();
 
         EndDrawing();
-        //----------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------------------------------
     }
+    //------------------------------------------------------------------------------------------------------------------
 
     // De-Initialization
-    //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
-
+    //------------------------------------------------------------------------------------------------------------------
+    CloseWindow();		// Close window and OpenGL context
+	//------------------------------------------------------------------------------------------------------------------
+    
     return 0;
 }

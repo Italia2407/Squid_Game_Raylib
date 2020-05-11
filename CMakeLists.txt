@@ -11,3 +11,5 @@ add_subdirectory(libs/raylib)
 
 add_executable(raylib_Squid_Game src/main.c src/gameobject.h src/gameobject.c src/squid.h src/squid.c)
 target_link_libraries(raylib_Squid_Game PRIVATE raylib)
+
+target_compile_definitions(raylib_Squid_Game PRIVATE ASSET_PATH="../assets/") # the default folder path for all of our assets

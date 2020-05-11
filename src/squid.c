@@ -5,6 +5,8 @@
 #include "squid.h"
 #include "raymath.h"
 
+#include <stdio.h>
+
 #define SQUID_WIDTH 64
 #define SQUID_HEIGHT 64
 
@@ -25,9 +27,12 @@ void UpdateSquid(GameObject* squidObject)
 {
 	Squid* squidData = (Squid*)squidObject->objectData;
 	
+	// Propulsion
+	//------------------------------------------------------------------------------------------------------------------
 	if (IsKeyDown(KEY_W))
 	{
 		squidData->speed = -5.0f;
+		
 	} else if (IsKeyDown(KEY_S))
 	{
 		squidData->speed = 5.0f;
@@ -35,6 +40,12 @@ void UpdateSquid(GameObject* squidObject)
 	{
 		squidData->speed = 0.0f;
 	}
+	//------------------------------------------------------------------------------------------------------------------
+	
+	// Steering
+	//------------------------------------------------------------------------------------------------------------------
+	
+	//------------------------------------------------------------------------------------------------------------------
 	
 	ResolveMovement(squidObject, squidData);
 }
@@ -43,9 +54,14 @@ void RenderSquid(GameObject* squidObject)
 {
 	Squid* squidData = (Squid*)squidObject->objectData;
 	
+	// Main Body
+	//------------------------------------------------------------------------------------------------------------------
+	// The dimensions of the squid sprite
 	Rectangle squidRectangle = (Rectangle){squidObject->position.x, squidObject->position.y, SQUID_WIDTH, SQUID_HEIGHT};
+	// Finds the centre of the squid sprite
 	Vector2 squidCentre = (Vector2){squidRectangle.width / 2, squidRectangle.height / 2};
 	DrawRectanglePro(squidRectangle, squidCentre, 0.0f, squidData->headColour);
+	//------------------------------------------------------------------------------------------------------------------
 }
 
 void ResolveMovement(GameObject* squidObject, Squid* squidData)
