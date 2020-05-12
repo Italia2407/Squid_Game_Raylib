@@ -10,7 +10,7 @@
 
 typedef struct squidStruct
 {
-	Vector2 direction;
+	float directionAngle;
 	float speed;
 	
 	Color headColour;
