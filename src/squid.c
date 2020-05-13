@@ -40,10 +40,10 @@ void UpdateSquid(GameObject* squidObject)
 	
 	// Propulsion
 	//------------------------------------------------------------------------------------------------------------------
-	const float acceleration = 0.1f;
-	const float deceleration = 0.15f;
-	const float maxSpeed = 5.0f;
-	const float maxBackSpeed = -2.5f;
+	const float acceleration = 0.2f;
+	const float deceleration = 0.3f;
+	const float maxSpeed = 10.0f;
+	const float maxBackSpeed = -4.5f;
 	if (IsKeyDown(KEY_W) && IsKeyUp(KEY_S))
 	{
 		if (squidData->speed < 0.0f)

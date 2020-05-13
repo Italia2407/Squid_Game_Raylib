@@ -17,8 +17,8 @@ int main(void)
     InitObjectSystem();
     
     SquidFlags squidFlags = (SquidFlags){BEIGE, BROWN};
-    CreateObject((Vector2){GetScreenWidth()  / 2, GetScreenHeight() / 2},
-    				&InitialiseSquid, &UpdateSquid, &RenderSquid, &squidFlags, sizeof(Squid));
+    GameObject* player =  CreateObject((Vector2){GetScreenWidth()  / 2, GetScreenHeight() / 2},
+    										&InitialiseSquid, &UpdateSquid, &RenderSquid, &squidFlags, sizeof(Squid));
     //------------------------------------------------------------------------------------------------------------------
 
     // Main game loop
