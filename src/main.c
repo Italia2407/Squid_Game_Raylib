@@ -48,10 +48,10 @@ int main(void)
 		//--------------------------------------------------------------------------------------------------------------
 		BeginDrawing();
 		// Set background colour of the game
-		ClearBackground(SKYBLUE);
+		ClearBackground(RAYWHITE);
 		BeginMode2D(((PlayerCam *) playerCam->objectData)->camera);
-	
-		DrawBackgroundGrid(32, 32, 16, 16, RAYWHITE);
+		
+		DrawBackgroundGrid(16, 16, 16, 16, SKYBLUE);
         
         RenderObjects();
 
