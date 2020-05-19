@@ -45,7 +45,7 @@ static int GetNextFreeSlot()
 	return -1;
 }
 
-GameObject* CreateObject(Vector2 position, void (*startBehaviour)(struct gameObjectStruct*, void*), void (*updateBehaviour)(GameObject*), void (*renderBehaviour)(GameObject*), void* startFlags, int sizeOfData)
+GameObject* CreateObject(Vector2 position, void (*startBehaviour)(struct gameobject*, void*), void (*updateBehaviour)(GameObject*), void (*renderBehaviour)(GameObject*), void* startFlags, int sizeOfData)
 {
 	// Checks if there is a free slot available within the object pool, and gets the ID of the first one found
 	int nextID = GetNextFreeSlot();

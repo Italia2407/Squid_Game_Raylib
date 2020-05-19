@@ -1,6 +1,6 @@
 #include "raylib.h"
 #include "gameobject.h"
-#include "squid.h"
+#include "player.h"
 #include "playercam.h"
 #include <stdio.h>
 
@@ -19,12 +19,12 @@ int main(void)
     SetTargetFPS(FPS_CAP);
     InitObjectSystem();
     
-    SquidFlags squidFlags = {
+    PlayerFlags playerFlags = {
     		.headColour = BEIGE,
     		.tentacleColour = BROWN
     };
     GameObject* player = CreateObject((Vector2){GetScreenWidth()  / 2, GetScreenHeight() / 2},
-    										&InitialiseSquid, &UpdateSquid, &RenderSquid, &squidFlags, sizeof(Squid));
+									  &InitialisePlayer, &UpdatePlayer, &RenderPlayer, &playerFlags, sizeof(Player));
     
     PlayerCameraFlags playerCamFlags = {
     		.target = player,

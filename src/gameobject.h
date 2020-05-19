@@ -9,22 +9,22 @@
 
 #define POOL_SIZE 2048
 
-typedef enum gameObjectStateEnum
+typedef enum gameobject_states
 {
 	GO_DESTROYED = -1,
 	GO_INACTIVE = 0,
 	GO_ACTIVE = 1
-} GameObjectState;
+} GameObjectStates;
 
-typedef struct gameObjectStruct
+typedef struct gameobject
 {
 	int id;
 	Vector2 position;
-	GameObjectState currentState;
+	GameObjectStates currentState;
 	
-	void (*startBehaviour)(struct gameObjectStruct*, void* flags);
-	void (*updateBehaviour)(struct gameObjectStruct*);
-	void (*renderBehaviour)(struct gameObjectStruct*);
+	void (*startBehaviour)(struct gameobject*, void* flags);
+	void (*updateBehaviour)(struct gameobject*);
+	void (*renderBehaviour)(struct gameobject*);
 	
 	void* objectData;
 } GameObject;
@@ -32,7 +32,7 @@ typedef struct gameObjectStruct
 void InitObjectSystem();
 
 GameObject* GetObjectByID(int id);
-GameObject* CreateObject(Vector2 position, void (*startBehaviour)(struct gameObjectStruct*, void*), void (*updateBehaviour)(GameObject*), void (*renderBehaviour)(GameObject*), void* startFlags, int sizeOfData);
+GameObject* CreateObject(Vector2 position, void (*startBehaviour)(struct gameobject*, void*), void (*updateBehaviour)(GameObject*), void (*renderBehaviour)(GameObject*), void* startFlags, int sizeOfData);
 
 void UpdateObjects();
 void RenderObjects();
