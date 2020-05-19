@@ -8,23 +8,19 @@
 #ifndef RAYLIB_SQUID_GAME_PLAYERCAM_H
 #define RAYLIB_SQUID_GAME_PLAYERCAM_H
 
-typedef struct playercamStruct
+typedef struct player_camera
 {
 	GameObject* target;
 	Camera2D camera;
-	
-	Vector2 velocity;
-} PlayerCam;
+} PlayerCamera;
 
-typedef struct playercamflagsStruct
+typedef struct player_camera_flags
 {
 	GameObject* target;
-	
 	Vector2 offset;
-} PlayerCamFlags;
+} PlayerCameraFlags;
 
-void InitialisePlayerCam(GameObject* playercamObject, void* startFlags);
-
-void UpdatePlayerCam(GameObject* playercamObject);
+PlayerCamera* InitialisePlayerCamera(PlayerCameraFlags startFlags);
+void UpdateCameraMovement(PlayerCamera* playerCamera);
 
 #endif //RAYLIB_SQUID_GAME_PLAYERCAM_H

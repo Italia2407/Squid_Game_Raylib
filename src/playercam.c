@@ -5,26 +5,31 @@
 #include "playercam.h"
 #include "raymath.h"
 
+#include <stdlib.h>
+
 static const float SMOOTH_SPEED = 0.125f;
 
-void InitialisePlayerCam(GameObject* playercamObject, void* startFlags)
+PlayerCamera* InitialisePlayerCamera(PlayerCameraFlags startFlags)
 {
-	PlayerCam* playerCamData = (PlayerCam*)playercamObject->objectData;
+	PlayerCamera* playerCamera = (PlayerCamera*)malloc(sizeof(PlayerCamera));
+	Camera2D camera2D = (Camera2D){0};
 	
-	playerCamData->target = ((PlayerCamFlags*)startFlags)->target;
+	playerCamera->target = startFlags.target;
 	
-	playerCamData->camera = (Camera2D){0};
-	playerCamData->camera.target = playerCamData->target->position;
-	playerCamData->camera.offset = ((PlayerCamFlags*)startFlags)->offset;
-	playerCamData->camera.rotation = 0.0f;
-	playerCamData->camera.zoom = 1.0f;
+	camera2D.target = playerCamera->target->position;
+	camera2D.offset = startFlags.offset;
+	camera2D.rotation = 0.0f;
+	camera2D.zoom = 1.0f;
+	playerCamera->camera = camera2D;
+	
+	return playerCamera;
 }
 
-void UpdatePlayerCam(GameObject* playercamObject)
+void UpdateCameraMovement(PlayerCamera* playerCamera)
 {
-	PlayerCam* playerCamData = (PlayerCam*)playercamObject->objectData;
+	Vector2 currentPosition = playerCamera->camera.target;
+	Vector2 desiredPosition = playerCamera->target->position;
+	Vector2 smoothedPosition = Vector2Lerp(currentPosition, desiredPosition, SMOOTH_SPEED);
 	
-	Vector2 desiredPosition = playerCamData->target->position;
-	Vector2 smoothedPosition = Vector2Lerp(playerCamData->camera.target, desiredPosition, SMOOTH_SPEED);
-	playerCamData->camera.target = smoothedPosition;
+	playerCamera->camera.target = smoothedPosition;
 }

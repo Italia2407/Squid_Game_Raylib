@@ -26,12 +26,11 @@ int main(void)
     GameObject* player = CreateObject((Vector2){GetScreenWidth()  / 2, GetScreenHeight() / 2},
     										&InitialiseSquid, &UpdateSquid, &RenderSquid, &squidFlags, sizeof(Squid));
     
-    PlayerCamFlags playerCamFlags = {
+    PlayerCameraFlags playerCamFlags = {
     		.target = player,
     		.offset = (Vector2) {SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2}
     };
-    GameObject* playerCam = CreateObject(playerCamFlags.target->position, &InitialisePlayerCam,
-    										&UpdatePlayerCam, NULL, &playerCamFlags, sizeof(PlayerCam));
+    PlayerCamera* playerCamera = InitialisePlayerCamera(playerCamFlags);
     //------------------------------------------------------------------------------------------------------------------
 
     // Main game loop
@@ -42,6 +41,7 @@ int main(void)
 		// Update
 		//--------------------------------------------------------------------------------------------------------------
 		UpdateObjects();
+		UpdateCameraMovement(playerCamera);
 		//--------------------------------------------------------------------------------------------------------------
 	
 		// Draw
@@ -49,10 +49,9 @@ int main(void)
 		BeginDrawing();
 		// Set background colour of the game
 		ClearBackground(RAYWHITE);
-		BeginMode2D(((PlayerCam *) playerCam->objectData)->camera);
+		BeginMode2D(playerCamera->camera);
 		
 		DrawBackgroundGrid(16, 16, 16, 16, SKYBLUE);
-        
         RenderObjects();
 
         EndMode2D();
