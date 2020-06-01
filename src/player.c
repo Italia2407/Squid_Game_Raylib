@@ -12,6 +12,15 @@
 
 #define BASE_DIRECTION (Vector2){0.0f, -1.0f}
 
+static Color new_palette[6] = {
+		(Color){147, 255, 5, 255},
+		(Color){208, 255, 120, 255},
+		(Color){2, 232, 14, 255},
+		(Color){68, 65, 64, 255},
+		(Color){255, 255, 255, 255},
+		(Color){0, 217, 105, 255},
+};
+
 static Vector2 GetDirectionByAngle(float angle)
 {
 	const float angleRadians = DEG2RAD * angle;
@@ -27,11 +36,10 @@ void InitialisePlayer(GameObject* playerObject, void* startFlags)
 {
 	Player* playerData = (Player*)playerObject->objectData;
 	
-	playerData->headColour = ((PlayerFlags*)startFlags)->headColour;
-	playerData->tentacleColour = ((PlayerFlags*)startFlags)->tentacleColour;
-	
 	playerData->directionAngle = 0.0f;
 	playerData->speed = 0.0f;
+	
+	playerData->sprite = LoadSprite(ASSET_PATH"Inkling_Temp_Sprite.png", 18);
 }
 
 void UpdatePlayer(GameObject* playerObject)
@@ -90,70 +98,34 @@ void UpdatePlayer(GameObject* playerObject)
 	Vector2 velocity = Vector2Scale(GetDirectionByAngle(playerData->directionAngle), playerData->speed);
 	playerObject->position = Vector2Add(playerObject->position, velocity);
 	//------------------------------------------------------------------------------------------------------------------
+	
+	// Colour Change
+	//------------------------------------------------------------------------------------------------------------------
+	if (IsKeyPressed(KEY_C))
+	{
+		SetColourPalette(&playerData->sprite, new_palette);
+	} else if (IsKeyReleased(KEY_C))
+	{
+		ResetColourPalette(&playerData->sprite);
+	}
+	//------------------------------------------------------------------------------------------------------------------
 }
 
 void RenderPlayer(GameObject* playerObject)
 {
-	Player* squidData = (Player*)playerObject->objectData;
+	Player* playerData = (Player*)playerObject->objectData;
 	
 	// Main Body
 	//------------------------------------------------------------------------------------------------------------------
-	
-	// TODO
-	// Set properties to be set only once and updated regularly
-	Image playerImage = LoadImage(ASSET_PATH"Inkling_Temp_Sprite.png");
-	ImageFormat(&playerImage, UNCOMPRESSED_R8G8B8A8);
-	Color* pixels = playerImage.data;
-	int pixel_count = playerImage.width * playerImage.height;
-	
-	int palette_size;
-	Color* palette = ImageExtractPalette(playerImage, 16, &palette_size);
-	Color new_palette[16] = {
-			(Color){147, 255, 5, 255},
-			(Color){208, 255, 120, 255},
-			(Color){2, 232, 14, 255},
-			(Color){68, 65, 64, 255},
-			(Color){255, 255, 255, 255},
-			(Color){0, 217, 105, 255},
-			(Color){0, 0, 0, 0},
-			(Color){0, 0, 0, 0},
-			(Color){0, 0, 0, 0},
-			(Color){0, 0, 0, 0},
-			(Color){0, 0, 0, 0},
-			(Color){0, 0, 0, 0},
-			(Color){0, 0, 0, 0},
-			(Color){0, 0, 0, 0},
-			(Color){0, 0, 0, 0},
-	};
-	
-	for (int y = 0; y < playerImage.height; y++)
-	{
-		for (int x = 0; x < playerImage.width; x++)
-		{
-			Color* pixel = &pixels[y * playerImage.width + x];
-			for (int i = 0; i < palette_size; i++)
-			{
-				if (ColorToInt(palette[i]) == ColorToInt(*pixel))
-				{
-					*pixel = new_palette[i];
-					break;
-				}
-			}
-		}
-	}
-	
-	Texture playerTexture = LoadTextureFromImage(playerImage);
 	Rectangle imageSection = (Rectangle){7, 3, 13, 18};
 	Rectangle playerRectangle = (Rectangle){playerObject->position.x, playerObject->position.y, 52, 72};
 	Vector2 playerCentre = (Vector2){playerRectangle.width / 2, playerRectangle.height / 2};
 	
-	DrawTexturePro(playerTexture, imageSection, playerRectangle, playerCentre, squidData->directionAngle, WHITE);
-	/*
-	// The dimensions of the squid sprite
-	Rectangle squidRectangle = (Rectangle){squidObject->position.x, squidObject->position.y, SQUID_WIDTH, SQUID_HEIGHT};
-	// Finds the centre of the squid sprite
-	Vector2 squidCentre = (Vector2){squidRectangle.width / 2, squidRectangle.height / 2};
-	DrawRectanglePro(squidRectangle, squidCentre, 0.0f, squidData->headColour);
-	 */
+	DrawTexturePro(playerData->sprite.image, imageSection, playerRectangle, playerCentre, playerData->directionAngle, WHITE);
 	//------------------------------------------------------------------------------------------------------------------
+	
+	for (int i = 0; i < playerData->sprite.palette_size; i++)
+	{
+		DrawRectangle(i * 16, GetScreenHeight() - 16, 16, 16, GetOriginalPalette(playerData->sprite)[i]);
+	}
 }

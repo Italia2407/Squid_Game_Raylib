@@ -19,12 +19,14 @@ int main(void)
     SetTargetFPS(FPS_CAP);
     InitObjectSystem();
     
+    /*
     PlayerFlags playerFlags = {
     		.headColour = BEIGE,
     		.tentacleColour = BROWN
     };
+    */
     GameObject* player = CreateObject((Vector2){GetScreenWidth()  / 2, GetScreenHeight() / 2},
-									  &InitialisePlayer, &UpdatePlayer, &RenderPlayer, &playerFlags, sizeof(Player));
+									  &InitialisePlayer, &UpdatePlayer, &RenderPlayer, NULL, sizeof(Player));
     
     PlayerCameraFlags playerCamFlags = {
     		.target = player,
@@ -52,6 +54,7 @@ int main(void)
 		BeginMode2D(playerCamera->camera);
 		
 		DrawBackgroundGrid(16, 16, 16, 16, SKYBLUE);
+		
         RenderObjects();
 
         EndMode2D();
