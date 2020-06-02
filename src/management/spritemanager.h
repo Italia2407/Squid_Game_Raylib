@@ -2,7 +2,7 @@
 // Created by IGRec on 24 May 2020.
 //
 
-#include "raylib.h"
+#include "../globals.h"
 
 #ifndef RAYLIB_SQUID_GAME_SPRITEMANAGER_H
 #define RAYLIB_SQUID_GAME_SPRITEMANAGER_H
@@ -16,8 +16,8 @@ typedef struct sprite
 	Color* palette;
 } Sprite;
 
-Sprite LoadSprite(const char* asset_file, int palette_size);
-Sprite LoadSpriteWithPalette(const char* asset_file, int palette_size, Color* new_palette);
+Sprite LoadSprite(const char* asset_file);
+Sprite LoadSpriteWithPalette(const char* asset_file, Color* new_palette);
 
 void SetColourPalette(Sprite* sprite, Color* new_palette);
 void ResetColourPalette(Sprite* sprite);

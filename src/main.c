@@ -1,14 +1,13 @@
-#include "raylib.h"
-#include "gameobject.h"
-#include "player.h"
-#include "playercam.h"
-#include <stdio.h>
+#include "globals.h"
+#include "objects/gameobject.h"
+#include "objects/player.h"
+#include "management/playercam.h"
 
 #define SCREEN_WIDTH (1280)
 #define SCREEN_HEIGHT (720)
 #define FPS_CAP (60)
 
-void DrawBackgroundGrid(int horSpace, int verSpace, int horSpan, int verSpan, Color colour);
+static void DrawBackgroundGrid(int horSpace, int verSpace, int horSpan, int verSpan, Color colour);
 
 int main(void)
 {

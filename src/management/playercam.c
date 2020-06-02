@@ -3,9 +3,6 @@
 //
 
 #include "playercam.h"
-#include "raymath.h"
-
-#include <stdlib.h>
 
 static const float SMOOTH_SPEED = 0.125f;
 

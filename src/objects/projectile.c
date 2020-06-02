@@ -7,11 +7,18 @@
 void InitialiseProjectile(GameObject* projectileObject, void* startFlags)
 {
 	Projectile* projectileData = (Projectile*)projectileObject->objectData;
+	
+	projectileData->velocity = ((ProjectileFlags*)startFlags)->initialVelocity;
 }
 
 void UpdateProjectile(GameObject* projectileObject)
 {
 	Projectile* projectileData = (Projectile*)projectileObject->objectData;
+	
+	// Movement
+	//------------------------------------------------------------------------------------------------------------------
+	projectileObject->position = Vector2Add(projectileObject->position, projectileData->velocity);
+	//------------------------------------------------------------------------------------------------------------------
 }
 
 void RenderProjectile(GameObject* projectileObject)

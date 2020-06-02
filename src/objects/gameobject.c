@@ -3,8 +3,6 @@
 //
 
 #include "gameobject.h"
-#include "raymath.h"
-#include <stdlib.h>
 
 static GameObject blankObject;
 static GameObject objectPool[POOL_SIZE];

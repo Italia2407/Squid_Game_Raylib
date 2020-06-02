@@ -3,14 +3,6 @@
 //
 
 #include "player.h"
-#include "raymath.h"
-
-#include <stdio.h>
-
-#define PLAYER_WIDTH 64
-#define PLAYER_HEIGHT 64
-
-#define BASE_DIRECTION (Vector2){0.0f, -1.0f}
 
 static Color new_palette[6] = {
 		(Color){147, 255, 5, 255},
@@ -21,17 +13,6 @@ static Color new_palette[6] = {
 		(Color){0, 217, 105, 255},
 };
 
-static Vector2 GetDirectionByAngle(float angle)
-{
-	const float angleRadians = DEG2RAD * angle;
-	
-	Vector2 newDirection;
-	newDirection.x = (cosf(angleRadians) * BASE_DIRECTION.x) - (sinf(angleRadians) * BASE_DIRECTION.y);
-	newDirection.y = (sinf(angleRadians) * BASE_DIRECTION.x) + (cosf(angleRadians) * BASE_DIRECTION.y);
-	
-	return newDirection;
-}
-
 void InitialisePlayer(GameObject* playerObject, void* startFlags)
 {
 	Player* playerData = (Player*)playerObject->objectData;
@@ -39,7 +20,7 @@ void InitialisePlayer(GameObject* playerObject, void* startFlags)
 	playerData->directionAngle = 0.0f;
 	playerData->speed = 0.0f;
 	
-	playerData->sprite = LoadSprite(ASSET_PATH"Inkling_Temp_Sprite.png", 18);
+	playerData->sprite = LoadSprite(ASSET_PATH"Inkling_Temp_Sprite.png");
 }
 
 void UpdatePlayer(GameObject* playerObject)
@@ -126,6 +107,6 @@ void RenderPlayer(GameObject* playerObject)
 	
 	for (int i = 0; i < playerData->sprite.palette_size; i++)
 	{
-		DrawRectangle(i * 16, GetScreenHeight() - 16, 16, 16, GetOriginalPalette(playerData->sprite)[i]);
+		DrawRectangle(i * 16, GetScreenHeight() - 16, 16, 16, playerData->sprite.palette[i]);
 	}
 }

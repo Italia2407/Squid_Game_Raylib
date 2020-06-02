@@ -9,7 +9,9 @@ set(BUILD_GAMES    OFF CACHE BOOL "" FORCE) # or games
 
 add_subdirectory(libs/raylib)
 
-add_executable(raylib_Squid_Game src/main.c src/gameobject.h src/gameobject.c src/player.h src/player.c src/playercam.h src/playercam.c src/projectile.h src/projectile.c src/spritemanager.h src/spritemanager.c)
-target_link_libraries(raylib_Squid_Game PRIVATE raylib)
+set(SRC_FILES src/main.c src/globals.c)
+set(SRC_FILES_OBJ src/objects/gameobject.c src/objects/player.c src/objects/projectile.c)
+set(SRC_FILES_MGT src/management/playercam.c src/management/spritemanager.c)
 
-target_compile_definitions(raylib_Squid_Game PRIVATE ASSET_PATH="../assets/") # the default folder path for all of our assets
+add_executable(raylib_Squid_Game ${SRC_FILES} ${SRC_FILES_OBJ} ${SRC_FILES_MGT})
+target_link_libraries(raylib_Squid_Game PRIVATE raylib)

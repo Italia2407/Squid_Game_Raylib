@@ -6,7 +6,7 @@
 
 #define MAX_PALETTE_SIZE 256
 
-Sprite LoadSprite(const char* asset_file, int palette_size)
+Sprite LoadSprite(const char* asset_file)
 {
 	Sprite new_sprite = {0};
 	
@@ -19,14 +19,14 @@ Sprite LoadSprite(const char* asset_file, int palette_size)
 	return new_sprite;
 }
 
-Sprite LoadSpriteWithPalette(const char* asset_file, int max_palette_size, Color* new_palette)
+Sprite LoadSpriteWithPalette(const char* asset_file, Color* new_palette)
 {
 	Sprite new_sprite = {0};
 	
 	new_sprite.original = LoadImage(asset_file);
 	ImageFormat(&new_sprite.original, UNCOMPRESSED_R8G8B8A8);
 	
-	new_sprite.palette = ImageExtractPalette(new_sprite.original, max_palette_size, &new_sprite.palette_size);
+	new_sprite.palette = ImageExtractPalette(new_sprite.original, MAX_PALETTE_SIZE, &new_sprite.palette_size);
 	SetColourPalette(&new_sprite, new_palette);
 	
 	return new_sprite;
@@ -56,6 +56,7 @@ void SetColourPalette(Sprite* sprite, Color* new_palette)
 	}
 	
 	sprite->image = LoadTextureFromImage(copy);
+	sprite->palette = new_palette;
 }
 
 void ResetColourPalette(Sprite* sprite)

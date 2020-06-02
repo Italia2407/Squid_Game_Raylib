@@ -2,8 +2,8 @@
 // Created by IGRec on 13 May 2020.
 //
 
-#include "raylib.h"
-#include "gameobject.h"
+#include "../globals.h"
+#include "../objects/gameobject.h"
 
 #ifndef RAYLIB_SQUID_GAME_PLAYERCAM_H
 #define RAYLIB_SQUID_GAME_PLAYERCAM_H

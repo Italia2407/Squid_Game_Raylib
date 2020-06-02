@@ -2,9 +2,9 @@
 // Created by IGRec on 6 May 2020.
 //
 
-#include "raylib.h"
+#include "../globals.h"
 #include "gameobject.h"
-#include "spritemanager.h"
+#include "../management/spritemanager.h"
 
 #ifndef RAYLIB_TEMPLATE_PLAYER_H
 #define RAYLIB_TEMPLATE_PLAYER_H

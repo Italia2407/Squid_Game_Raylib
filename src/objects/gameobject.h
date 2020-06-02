@@ -2,7 +2,7 @@
 // Created by IGRec on 6 May 2020.
 //
 
-#include "raylib.h"
+#include "../globals.h"
 
 #ifndef RAYLIB_TEMPLATE_GAMEOBJECT_H
 #define RAYLIB_TEMPLATE_GAMEOBJECT_H
