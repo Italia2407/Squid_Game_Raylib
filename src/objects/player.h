@@ -17,10 +17,12 @@ typedef struct player
 	Sprite sprite;
 } Player;
 
+/*
 typedef struct player_flags
 {
 
 } PlayerFlags;
+*/
 
 void InitialisePlayer(GameObject* playerObject, void* startFlags);
 void UpdatePlayer(GameObject* playerObject);
