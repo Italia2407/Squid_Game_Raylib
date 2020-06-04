@@ -20,7 +20,7 @@ void InitialisePlayer(GameObject* playerObject, void* startFlags)
 	playerData->directionAngle = 0.0f;
 	playerData->speed = 0.0f;
 	
-	playerData->sprite = LoadSprite(ASSET_PATH"Inkling_Temp_Sprite.png");
+	playerData->sprite = LoadSprite(ASSET_PATH"Squid.png");
 }
 
 void UpdatePlayer(GameObject* playerObject)
@@ -98,7 +98,10 @@ void RenderPlayer(GameObject* playerObject)
 	
 	// Main Body
 	//------------------------------------------------------------------------------------------------------------------
-	Rectangle imageSection = (Rectangle){7, 3, 13, 18};
+	Rectangle imageSection = (Rectangle){
+		.width = playerData->sprite.image.width,
+		.height = playerData->sprite.image.height
+	};
 	Rectangle playerRectangle = (Rectangle){playerObject->position.x, playerObject->position.y, 52, 72};
 	Vector2 playerCentre = (Vector2){playerRectangle.width / 2, playerRectangle.height / 2};
 	
